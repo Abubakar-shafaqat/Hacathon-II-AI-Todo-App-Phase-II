@@ -62,10 +62,11 @@ class APIClient {
     options: RequestInit = {}
   ): Promise<T> {
     const token = this.getToken();
-    const headers: HeadersInit = {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    };
+    const headers: Record<string, string> = {
+  'Content-Type': 'application/json',
+  ...(options.headers as Record<string, string> | undefined),
+};
+
 
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
